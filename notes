@@ -1,0 +1,76 @@
+goal : decentralized shapes to make up a whole level
+
+	:: not all displayed at once, moving with the character's arrows;
+		//then settles where finished
+	:: climbables ?
+	:: based on a text file, into char **map
+		:: spaces being nothing
+		:: F being flowers, T being trees, C being clouds, D being doors
+	:: occasional interactive object (here doors)
+
+
+goal : a usable player icon
+
+	:: possible jump moves ?
+	:: walking/climbing/touching animations ?
+	:: a structure where current spot of player is stored
+		//for display
+		//for interaction
+	:: a smaller put_img_to_window for player movement in the bottom left corner
+		//for speed of display
+
+
+goal : more depth
+
+	:: multiple text files per environment, where images overlap and converge en quinconces
+		//for forests
+		//for grass-type environments
+	:: colors that gray out with the overlap
+
+goal : small animation of a leaf in the wind
+
+	:: leaf going left, leaf going right, leaf straight
+		//three levels on each side
+	:: establish tempo
+	:: structure retains the side to move to next
+	:: loop through the seven different images stored in structure as well
+
+
+leaf ::
+
+   f
+  fff
+ fffff
+  fff
+   f
+
+left leaf level 1::
+
+   f
+  fff
+ fffff
+  fff
+    f
+
+left leaf level 2::
+
+  f
+ fff
+fffff
+ ffff
+    f
+
+left leaf level 3::
+  
+      ffff
+	fffff
+	 fffff
+	      f
+    
+right leaf level 1::
+
+      f
+     fff
+    fffff
+     fff
+     f
