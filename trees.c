@@ -1,25 +1,4 @@
-#include <mlx.h>
-#include <stdlib.h>
-
-typedef struct s_data
-{
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		ll;
-	int		endian;
-	struct s_data *next;
-	struct s_data *prev;
-}			t_data;
-
-typedef struct	s_str
-{
-	void *mlx;
-	void *win;
-	t_data *current_img;
-	int	dir;
-}			t_str;
-	
+#include "libby.h"
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -32,7 +11,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 void	pixelate(t_data *img, int x, int y)
 {
 	int	i = 0;
-	x = x -3;
+	int	j;
 
 	while (i < 6)
 	{
@@ -46,34 +25,41 @@ void	pixelate(t_data *img, int x, int y)
 	}
 }
 
-void	leaf_straight(t_data *img, int x, int y, int level)
+void	map_to_img(t_data *img, char **map, int vert, int hor)
 {
 	int	i = 0;
 	int	j;
 
-	
-
-void	leaf_right(t_data *img, int x, int y, int level)
-{
-	int	i = 0;
-	int	j;
-
-	if (level == 1)
+	while (i < vert)
 	{
-		
+		j = 0;
+		while (j < hor)
+		{
+			if (map[vert - i][j] == 'f')
+				pixelate(img, j * 6, i * 6);
+			j++;
+		}
+		i++;
+	}
+}
 
 void	make_leaf(t_data *img, int level)
 {
-	int	x = 200;
-	int	y = 400;
+	char	**map;
+	char	*file;
 
-	pixelate(img, x, y);
-	if (level <= 3)
-		leaf_right(img, x, y, level);
-	else if (level == 4)
-		leaf_straight(img, x, y);
-	else
-		leaf_left(img, x, y, level);
+	file = get_file(level);
+	if (!file)
+		return ;
+	if (!check_map(file, 6, 25))
+		return ;
+	map = make_map(file, 6, 25);
+	if (!map)
+		return ;
+	if (level < 0)
+		map = reverse_map(map, 6, 25);
+	map_to_img(img, map, 6, 25);
+	free_all_map(-2, map);
 }
 
 void	free_all_imgs(t_data *img, void *mlx)
@@ -105,14 +91,14 @@ int	free_all(t_str *all)
 	return (0);
 }
 
-t_data	*make_img(void *mlx, t_data *prev)
+t_data	*make_img(void *mlx, t_data *prev, int hor, int vert)
 {
 	t_data	*img;
 
 	img = (t_data *)malloc(sizeof(t_data));
 	if (!img)
 		return (NULL);
-	img->img = mlx_new_image(mlx, 400, 400);
+	img->img = mlx_new_image(mlx, 6 * hor, 6 * vert);
 	if (!img->img)
 	{
 		free(img);
@@ -151,7 +137,7 @@ void	init_imgs(t_data *img)
 {
 	int	i;
 
-	i = 1;
+	i = -3;
 	while (img)
 	{
 		make_leaf(img, i);
@@ -159,6 +145,9 @@ void	init_imgs(t_data *img)
 		img = img->next;
 	}
 }
+
+//next up :: animation
+int	wind_blows(t_str *all);
 
 int main(void)
 {
@@ -172,14 +161,14 @@ int main(void)
 	all->mlx = mlx_init();
 	if (!all->mlx)
 		return (free_all(all));
-	all->win = mlx_new_window(str->mlx, 400, 400, "leaf");
+	all->win = mlx_new_window(str->mlx, 6 * 25, 6 * 6, "leaf");
 	if (!all->win)
 		return (free_all(all));
 	all->current_img = make_imgs(all);
 	if (!all->current_img)
 		return (free_all(all));
 	init_imgs(all->current_img);
-	mlx_loop_hook(/*animation here, moving left -1 or right 1*/);
+	mlx_loop_hook(all->mlx, &wind_blows, all);
 	mlx_hook(all->win, 2, 1L << 0, &closer, all);
 	mlx_loop(all->mlx);
 	return (free_all(all));
