@@ -1,23 +1,13 @@
 #include "libby.h"
 
-void	print(char *str)
-{
-	int	i = 0;
-	while (str && str[i])
-	{
-		write(1, &str[i], 1);
-		i++;
-	}
-}
+/*#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>*/
 
-void	print_err(char *func, char *err)
-{
-	print("error occured in function: ");
-	print(func);
-	print("\ntype of error: ");
-	print(err);
-	print("\n");
-}
+//void print(char *str);
+//void	print_err(char *func, char *err);
+
 
 int	in_str(char a, char *str)
 {
@@ -166,23 +156,41 @@ char	**reverse_map(char **map, int vert, int hor)
 		while (j < hor / 2)
 		{
 			tmp = map[i][j];
-			map[i][j] = map[i][hor - j];
-			map[i][hor - j] = tmp;
+			map[i][j] = map[i][hor - 1 - j];
+			map[i][hor - 1 - j] = tmp;
 			j++;
 		}
 		i++;
 	}
 	return (map);
 }
-			
+
+int	get_map_width(char *filename)
+{
+	int fd = open(filename, O_RDONLY);
+	if (fd == -1)
+	{
+		print_err("get_map_width", "open file");
+		return (0);
+	}
+	int	i = 0;
+	char	buf;
+	while (read(fd, &buf, 1) && buf != '\n')
+		i++;
+	close(fd);
+	return (i);
+}
 
 /*int	main(void)
 {
-	int res = check_map("map.txt", 7, 22);
+	int res = check_map("maps/straight.txt", 6, 25);
+	res = get_map_width("maps/straight.txt");
 	printf("here res :: %d\n", res);
-	char **map = make_map("map.txt", 7, 22);
+	char **map = make_map("maps/straight.txt", 6, 25);
 	if (!map)
 		return (0);
+	read_map(map);
+	map = reverse_map(map, 6, 25);
 	read_map(map);
 	free_all_map(-1, map);
 	return (0);

@@ -1,6 +1,6 @@
                          
-                         
-     ffff                
-       ffff              
+       f                 
+        ffff             
         fffff            
+          fff            
             f            

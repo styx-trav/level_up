@@ -30,47 +30,63 @@ goal : more depth
 goal : small animation of a leaf in the wind
 
 	:: leaf going left, leaf going right, leaf straight
-		//three levels on each side
-	:: establish tempo
+		//three levels on each side -- two now
+	:: establish tempo -- 80000, * 3 for anchor frames
 	:: structure retains the side to move to next
-	:: loop through the seven different images stored in structure as well
+	:: loop through the five different images stored in structure as well
 
+goal : small going through of an easy road map, using left/right arrows
+
+	:: hitting walls (end of img to be displayed, no movement)
+	:: environment texture for differenciation
+	:: while loop for smooth frame movement, instead of jarring usleep, moving maybe 1 to 10 pixels at a time into the full length decided
+
+next up :: labyrinth !!
+
+goal : small labyrinth to get through
+
+	:: player represented about center screen unless a bound is reached by a black square
+	:: map kept in storage to check if player has rights to the move requested
+	:: player spot also kept in storage (i, j)
+	:: maybe an end screen ? like all white, to signify end of game before closing
 
 leaf ::
 
-   f
-  fff
- fffff
-  fff
-   f
+so now we have :: 5 images, from one far end to the other.
+direction :: -1 for backward, 1 for forward
+anchor frames :: 3 * printed
 
-left leaf level 1::
+road_trip ::
 
-   f
-  fff
- fffff
-  fff
-    f
+one big image based on the provided map
+small window for audience sight
+moving image back left so the window appears to move right
+constant one pixel a frame, 10 pixels a step
+dir :: placement of the image, 0 or negative if moved forward
 
-left leaf level 2::
 
-  f
- fff
-fffff
- ffff
-    f
 
-left leaf level 3::
-  
-      ffff
-	fffff
-	 fffff
-	      f
 
-right leaf level 1::
+current notes of interest ::
 
-      f
-     fff
-    fffff
-     fff
-     f
+-- images need not fit in the window, one can just throw it out of display bond and move it forward / backward depending on how much of it is supposed to be in the focus of the audience
+	//very helpful for not moving forward, given that just the one image can be allocated and then moved by "putting image to window (-70 * walk, -65 * walk, etc.)"
+	//no leaks, all imgs free just fine
+
+-- mulitple images will, in fact, crush one another in order of last pushed to window, no matter transparency or something else
+	//its vital to minimize the size of an image meant to be repushed so as to not step on any other image when pushed to display
+	//transparency means nothing ??
+	//will need to check out the get_color function to mix and match
+
+-- maybe there could be a img_to_map ?
+	-- where I can draw on the map using a hook and pixelate for every left click
+	-- then hit a button and get my .txt full with the current img in text form for storage
+	-- even possibly to its smallest possible size ?
+
+-- expanding on previous point with an animation clause
+	-- directory with all files in it;
+	-- size min decided based on all images;
+	-- files named based on argv[1] and the order of making;
+	-- previous image still displayed but faded for anchor point, rewritable;
+
+
