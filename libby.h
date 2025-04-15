@@ -24,6 +24,12 @@ typedef struct	s_str
 	void *win;
 	t_data *current_img;
 	int	dir;
+	char	**map;
+	int	player_i;
+	int	player_j;
+	int	hor;
+	int	vert;
+	int	pixel;
 }			t_str;
 
 //from utils.c
@@ -43,15 +49,17 @@ int	get_map_width(char *filename);
 
 
 //from trees.c
+int	make_leaf(t_data *img, int level);
+t_data	*make_imgs(void *mlx, int hor, int vert);
+int	init_imgs(t_data *img);
+
+//from pool.c
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int	closer(int keycode, t_str *str);
 void	pixelate(t_data *img, int x, int y, int color);
 void	map_to_img(t_data *img, char **map, int vert, int hor);
-int	make_leaf(t_data *img, int level);
 void	free_all_imgs(t_data *img, void *mlx);
 int	free_all(t_str *all);
 t_data	*make_img(void *mlx, t_data *prev, int hor, int vert);
-t_data	*make_imgs(void *mlx, int hor, int vert);
-int	init_imgs(t_data *img);
 
 #endif

@@ -49,6 +49,7 @@ goal : small labyrinth to get through
 	:: map kept in storage to check if player has rights to the move requested
 	:: player spot also kept in storage (i, j)
 	:: maybe an end screen ? like all white, to signify end of game before closing
+	:: moving 6 by 6 pixels instead of 10 for easier checks
 
 leaf ::
 
@@ -65,7 +66,7 @@ constant one pixel a frame, 10 pixels a step
 dir :: placement of the image, 0 or negative if moved forward
 
 
-
+arrows :: up == 65362, down == 65364, left == 65361, right == 65363;
 
 current notes of interest ::
 

@@ -1,7 +1,7 @@
 CC=cc
 FLAGS=-Wall -Werror -Wextra
 NAME=road_trip
-OBJ=make_map.c trees.c utils.c road_trip.c
+OBJ=make_map.c trees.c utils.c labyrinth.c pool.c
 
 all: $(NAME)
 

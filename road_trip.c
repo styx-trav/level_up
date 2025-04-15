@@ -29,6 +29,8 @@ int	move(int key, t_str *all)
 			all->dir = all->dir + mov;
 		}
 	}
+	else
+		printf("here code %d\n", key);
 	return (0);	
 }
 
@@ -44,8 +46,8 @@ int	main(void)
 	all->mlx = mlx_init();
 	if (!all->mlx)
 		return (free_all(all));
-	int hor = get_map_width("maps/road.txt");
-	if (!hor || !check_map("maps/road.txt", 7, hor))
+	int hor = get_map_width("maps/labyrinth.txt");
+	if (!hor || !check_map("maps/labyrinth.txt", 7, hor))
 		return (0);
 	int vert = 7;
 	all->win = mlx_new_window(all->mlx, 6 * 50, 6 * vert, "leaf");
@@ -54,7 +56,7 @@ int	main(void)
 	all->current_img = make_img(all->mlx, NULL, hor, vert);
 	if (!all->current_img)
 		return (free_all(all));
-	char **map = make_map("maps/road.txt", vert, hor);
+	char **map = make_map("maps/labyrinth.txt", vert, hor);
 	if (!map)
 		return (free_all(all));
 	map_to_img(all->current_img, map, vert, hor);

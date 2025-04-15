@@ -1,0 +1,25 @@
+                                
+ fff fffffffff fffffffff        
+   f   f   f f f     f          
+ f fff f f f fff fffffff        
+ f   f f f f f   f              
+ fffff fff f f fff ff ff        
+ f         f   f   f   f        
+ fffffffff f f f fffffff        
+ f       f f f f   f            
+ fffffff f f f fff fffff        
+   f   f f f f   f     f        
+ f fff f fff fffff fffff        
+ f f f f     f   f f   f        
+ fff f fffff fff fff f f        
+     f f     f f     f f        
+ fffff f fffff fffffff f        
+   f   f f         f   f        
+ fff fff fffffff fffff f        
+ f           f   f f   f        
+ f ffff  f fffff f f fff        
+ f f     f f     f   f          
+ f ffff  f fffff fff f          
+ f    f  f f       f f          
+ ffffff  fffffffff fffffffffffff
+                                
