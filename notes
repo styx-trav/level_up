@@ -65,6 +65,16 @@ moving image back left so the window appears to move right
 constant one pixel a frame, 10 pixels a step
 dir :: placement of the image, 0 or negative if moved forward
 
+pixelart ::
+
+black screen, palette in a corridor on the right side
+colors are showing up great, although i wish i could click and drag
+bonuses ::
+i'd like colors to be translatable on maps ?
+	:: turning the one map into three _green, _red, _blue maps;
+	:: updating the colors during the pixelating process;
+		//adding a piece of the color instead of 'f' to every map;
+	:: reading the maps in a different way later on, layering them all together at once to the img;
 
 arrows :: up == 65362, down == 65364, left == 65361, right == 65363;
 

@@ -1,13 +1,52 @@
 #include "libby.h"
 
-t_data	*make_img(void *mlx, t_data *prev, int hor, int vert)
+int	get_blue(int color, int shade)
+{
+	unsigned char	maker[4];
+
+	if (((unsigned char *)&color)[0] == 255)
+		shade = 0;
+	maker[0] = ((unsigned char *)&color)[0] + shade;
+	maker[1] = ((unsigned char *)&color)[1];
+	maker[2] = ((unsigned char *)&color)[2];
+	maker[3] = ((unsigned char *)&color)[3];
+	return ((*(int *)maker));
+}
+
+int	get_green(int color, int shade)
+{
+	unsigned char	maker[4];
+
+	maker[0] = ((unsigned char *)&color)[0];
+	if (((unsigned char *)&color)[1] == 255)
+		shade = 0;
+	maker[1] = ((unsigned char *)&color)[1] + shade;
+	maker[2] = ((unsigned char *)&color)[2];
+	maker[3] = ((unsigned char *)&color)[3];
+	return ((*(int *)maker));
+}
+
+int	get_red(int color, int shade)
+{
+	unsigned char	maker[4];
+
+	maker[0] = ((unsigned char *)&color)[0];
+	maker[1] = ((unsigned char *)&color)[1];
+	if (((unsigned char *)&color)[2] == 255)
+		shade = 0;
+	maker[2] = ((unsigned char *)&color)[2] + shade;
+	maker[3] = ((unsigned char *)&color)[3];
+	return ((*(int *)maker));
+}
+
+t_data	*make_img(void *mlx, t_data *prev, int hor, int vert, int pixel)
 {
 	t_data	*img;
 
 	img = (t_data *)malloc(sizeof(t_data));
 	if (!img)
 		return (NULL);
-	img->img = mlx_new_image(mlx, 30 * hor, 30 * vert);
+	img->img = mlx_new_image(mlx, pixel * hor, pixel * vert);
 	if (!img->img)
 	{
 		free(img);
@@ -63,22 +102,22 @@ void	map_to_img(t_data *img, char **map, int vert, int hor)
 		while (j < hor)
 		{
 			if (map[i][j] == 'f')
-				pixelate(img, j * 30, i * 30, 0X00FFFFFF);
+				pixelate(img, j * 30, i * 30, 0X00FFFFFF, 30);
 			j++;
 		}
 		i++;
 	}
 }
 
-void	pixelate(t_data *img, int x, int y, int color)
+void	pixelate(t_data *img, int x, int y, int color, int size)
 {
 	int	i = 0;
 	int	j;
 
-	while (i < 30)
+	while (i < size)
 	{
 		j = 0;
-		while (j < 30)
+		while (j < size)
 		{
 			my_mlx_pixel_put(img, x + i, y + j, color);
 			j++;

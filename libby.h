@@ -30,6 +30,7 @@ typedef struct	s_str
 	int	hor;
 	int	vert;
 	int	pixel;
+	int	color;
 }			t_str;
 
 //from utils.c
@@ -53,13 +54,16 @@ int	make_leaf(t_data *img, int level);
 t_data	*make_imgs(void *mlx, int hor, int vert);
 int	init_imgs(t_data *img);
 
-//from pool.c
+//from pool.c;
+int	get_blue(int color, int shade);
+int	get_green(int color, int shade);
+int	get_red(int color, int shade);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int	closer(int keycode, t_str *str);
-void	pixelate(t_data *img, int x, int y, int color);
+void	pixelate(t_data *img, int x, int y, int color, int size);
 void	map_to_img(t_data *img, char **map, int vert, int hor);
 void	free_all_imgs(t_data *img, void *mlx);
 int	free_all(t_str *all);
-t_data	*make_img(void *mlx, t_data *prev, int hor, int vert);
+t_data	*make_img(void *mlx, t_data *prev, int hor, int vert, int pixel);
 
 #endif
